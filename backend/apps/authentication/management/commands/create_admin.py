@@ -10,9 +10,9 @@ class Command(BaseCommand):
     help = 'Create the initial admin user and set up database indexes'
 
     def add_arguments(self, parser):
-        parser.add_argument('--email', type=str, default='admin@company.com')
-        parser.add_argument('--password', type=str, default='Admin@123')
-        parser.add_argument('--name', type=str, default='System Admin')
+        parser.add_argument('--email', type=str, required=True, help='Admin email address')
+        parser.add_argument('--password', type=str, required=True, help='Admin password')
+        parser.add_argument('--name', type=str, default='System Admin', help='Admin display name')
 
     def handle(self, *args, **options):
         create_indexes()
