@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Content } from '../../shared/models/content.model';
 import { PaginatedResponse } from '../../shared/models/api-response.model';
@@ -21,7 +21,9 @@ export class ContentService {
   }
 
   getContentById(id: string): Observable<Content> {
-    return this.http.get<Content>(`${this.apiUrl}/content/${id}/`);
+    return this.http.get<{ content: Content }>(`${this.apiUrl}/content/${id}/`).pipe(
+      map(res => res.content)
+    );
   }
 
   searchContent(params: Record<string, string>): Observable<PaginatedResponse<Content>> {
@@ -43,7 +45,9 @@ export class ContentService {
   }
 
   getAdminContentById(id: string): Observable<Content> {
-    return this.http.get<Content>(`${this.apiUrl}/admin/content/${id}/`);
+    return this.http.get<{ content: Content }>(`${this.apiUrl}/admin/content/${id}/`).pipe(
+      map(res => res.content)
+    );
   }
 
   createContent(data: Partial<Content>): Observable<Content> {
