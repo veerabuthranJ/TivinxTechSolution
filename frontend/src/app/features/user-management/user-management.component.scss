@@ -1,0 +1,76 @@
+.user-management {
+  .page-title {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 24px;
+    color: #333;
+  }
+}
+
+.management-card {
+  border-radius: 12px !important;
+}
+
+.toolbar-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.search-field {
+  width: 350px;
+
+  @media (max-width: 600px) {
+    width: 100%;
+  }
+}
+
+.user-table {
+  width: 100%;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  padding: 48px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 48px;
+  color: #999;
+
+  mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+  }
+}
+
+.status-chip {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.status-PENDING {
+  background-color: #fff3e0;
+  color: #e65100;
+}
+
+.status-APPROVED {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status-REJECTED {
+  background-color: #fce4ec;
+  color: #c62828;
+}
+
+.status-DISABLED {
+  background-color: #f5f5f5;
+  color: #757575;
+}

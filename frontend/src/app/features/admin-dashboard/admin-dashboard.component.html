@@ -1,0 +1,106 @@
+<div class="dashboard">
+  <h2 class="page-title">Admin Dashboard</h2>
+
+  @if (loading) {
+    <div class="loading-container">
+      <mat-spinner diameter="40"></mat-spinner>
+    </div>
+  } @else if (error) {
+    <div class="error-state">
+      <mat-icon>error_outline</mat-icon>
+      <p>{{ error }}</p>
+    </div>
+  } @else {
+    <div class="stat-grid">
+      @for (card of statCards; track card.key) {
+        <mat-card class="stat-card">
+          <mat-card-content>
+            <div class="stat-content">
+              <div class="stat-icon" [style.background-color]="card.color + '15'" [style.color]="card.color">
+                <mat-icon>{{ card.icon }}</mat-icon>
+              </div>
+              <div class="stat-info">
+                <span class="stat-value">{{ getStatValue(card.key) }}</span>
+                <span class="stat-label">{{ card.label }}</span>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      }
+    </div>
+
+    <div class="tables-grid">
+      <mat-card class="table-card">
+        <mat-card-header>
+          <mat-card-title>Recent Registrations</mat-card-title>
+          <span class="spacer"></span>
+          <a mat-button color="primary" routerLink="/admin/users">View All</a>
+        </mat-card-header>
+        <mat-card-content>
+          @if (stats?.recent_users?.length) {
+            <table mat-table [dataSource]="stats!.recent_users">
+              <ng-container matColumnDef="full_name">
+                <th mat-header-cell *matHeaderCellDef>Name</th>
+                <td mat-cell *matCellDef="let row">{{ row.full_name }}</td>
+              </ng-container>
+              <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef>Email</th>
+                <td mat-cell *matCellDef="let row">{{ row.email }}</td>
+              </ng-container>
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef>Status</th>
+                <td mat-cell *matCellDef="let row">
+                  <span class="status-chip" [class]="'status-' + row.status.toLowerCase()">{{ row.status }}</span>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="created_at">
+                <th mat-header-cell *matHeaderCellDef>Registered</th>
+                <td mat-cell *matCellDef="let row">{{ row.created_at | date:'short' }}</td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="userColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: userColumns;"></tr>
+            </table>
+          } @else {
+            <div class="empty-state">No recent registrations</div>
+          }
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="table-card">
+        <mat-card-header>
+          <mat-card-title>Recent Content</mat-card-title>
+          <span class="spacer"></span>
+          <a mat-button color="primary" routerLink="/admin/content">View All</a>
+        </mat-card-header>
+        <mat-card-content>
+          @if (stats?.recent_content?.length) {
+            <table mat-table [dataSource]="stats!.recent_content">
+              <ng-container matColumnDef="title">
+                <th mat-header-cell *matHeaderCellDef>Title</th>
+                <td mat-cell *matCellDef="let row">{{ row.title }}</td>
+              </ng-container>
+              <ng-container matColumnDef="category_name">
+                <th mat-header-cell *matHeaderCellDef>Category</th>
+                <td mat-cell *matCellDef="let row">{{ row.category_name || 'N/A' }}</td>
+              </ng-container>
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef>Status</th>
+                <td mat-cell *matCellDef="let row">
+                  <span class="status-chip" [class]="'status-' + row.status">{{ row.status }}</span>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="created_at">
+                <th mat-header-cell *matHeaderCellDef>Created</th>
+                <td mat-cell *matCellDef="let row">{{ row.created_at | date:'short' }}</td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="contentColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: contentColumns;"></tr>
+            </table>
+          } @else {
+            <div class="empty-state">No recent content</div>
+          }
+        </mat-card-content>
+      </mat-card>
+    </div>
+  }
+</div>

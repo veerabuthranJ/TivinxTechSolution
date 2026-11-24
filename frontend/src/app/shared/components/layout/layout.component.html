@@ -1,0 +1,62 @@
+<mat-sidenav-container class="layout-container">
+  <mat-sidenav #sidenav
+    [mode]="isMobile ? 'over' : 'side'"
+    [opened]="!isMobile"
+    class="sidenav">
+    <div class="sidenav-header">
+      <mat-icon class="logo-icon">play_circle</mat-icon>
+      <span class="logo-text">Content Portal</span>
+    </div>
+    <mat-divider></mat-divider>
+    <mat-nav-list>
+      @for (item of navItems; track item.route) {
+        <a mat-list-item
+          [routerLink]="item.route"
+          routerLinkActive="active-link"
+          (click)="onNavClick()">
+          <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+          <span matListItemTitle>{{ item.label }}</span>
+        </a>
+      }
+    </mat-nav-list>
+    <mat-divider></mat-divider>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/profile" routerLinkActive="active-link" (click)="onNavClick()">
+        <mat-icon matListItemIcon>person</mat-icon>
+        <span matListItemTitle>Profile</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar class="toolbar" color="primary">
+      <button mat-icon-button (click)="sidenav.toggle()" class="menu-btn">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="toolbar-title">Content Portal</span>
+      <span class="toolbar-spacer"></span>
+      <span class="user-name">{{ user?.full_name }}</span>
+      <button mat-icon-button [matMenuTriggerFor]="userMenu">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <mat-menu #userMenu="matMenu">
+        <button mat-menu-item routerLink="/profile">
+          <mat-icon>person</mat-icon>
+          <span>Profile</span>
+        </button>
+        <button mat-menu-item routerLink="/change-password">
+          <mat-icon>lock</mat-icon>
+          <span>Change Password</span>
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+    </mat-toolbar>
+    <main class="content">
+      <router-outlet />
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,64 @@
+<div class="profile-page">
+  <h2 class="page-title">Profile</h2>
+
+  @if (loading) {
+    <div class="loading-container">
+      <mat-spinner diameter="36"></mat-spinner>
+    </div>
+  } @else if (user) {
+    <mat-card class="profile-card">
+      <mat-card-content>
+        <div class="profile-header">
+          <div class="avatar">
+            <mat-icon>account_circle</mat-icon>
+          </div>
+          <div class="profile-name">
+            <h3>{{ user.full_name }}</h3>
+            <span class="role-badge">{{ user.role }}</span>
+          </div>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="profile-details">
+          <div class="detail-row">
+            <mat-icon>email</mat-icon>
+            <div>
+              <span class="detail-label">Email</span>
+              <span class="detail-value">{{ user.email }}</span>
+            </div>
+          </div>
+          <div class="detail-row">
+            <mat-icon>badge</mat-icon>
+            <div>
+              <span class="detail-label">Role</span>
+              <span class="detail-value">{{ user.role }}</span>
+            </div>
+          </div>
+          <div class="detail-row">
+            <mat-icon>verified</mat-icon>
+            <div>
+              <span class="detail-label">Status</span>
+              <span class="detail-value status-chip" [class]="'status-' + user.status">{{ user.status }}</span>
+            </div>
+          </div>
+          <div class="detail-row">
+            <mat-icon>calendar_today</mat-icon>
+            <div>
+              <span class="detail-label">Member Since</span>
+              <span class="detail-value">{{ user.created_at | date:'mediumDate' }}</span>
+            </div>
+          </div>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="profile-actions">
+          <a mat-raised-button color="primary" routerLink="/change-password">
+            <mat-icon>lock</mat-icon> Change Password
+          </a>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  }
+</div>

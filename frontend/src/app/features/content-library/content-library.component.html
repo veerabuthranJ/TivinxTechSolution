@@ -1,0 +1,73 @@
+<div class="content-library">
+  <h2 class="page-title">Content Library</h2>
+
+  <div class="search-section">
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Search videos</mat-label>
+      <input matInput [(ngModel)]="search" (input)="onSearchInput()" placeholder="Search by title, description, tags...">
+      <mat-icon matPrefix>search</mat-icon>
+    </mat-form-field>
+  </div>
+
+  <div class="filter-chips">
+    <button mat-stroked-button
+      [class.active]="!selectedCategory"
+      (click)="onCategorySelect('')">
+      All
+    </button>
+    @for (cat of categories; track cat.id) {
+      <button mat-stroked-button
+        [class.active]="selectedCategory === cat.id"
+        (click)="onCategorySelect(cat.id)">
+        {{ cat.name }}
+      </button>
+    }
+  </div>
+
+  @if (loading) {
+    <div class="skeleton-grid">
+      @for (i of [1,2,3,4,5,6]; track i) {
+        <div class="skeleton-card">
+          <div class="skeleton-img"></div>
+          <div class="skeleton-text"></div>
+          <div class="skeleton-text short"></div>
+        </div>
+      }
+    </div>
+  } @else if (contents.length === 0) {
+    <div class="empty-state">
+      <mat-icon>search_off</mat-icon>
+      <h3>No content found</h3>
+      <p>Try adjusting your search or filters</p>
+    </div>
+  } @else {
+    <div class="content-grid">
+      @for (item of contents; track item.id) {
+        <mat-card class="content-card" [routerLink]="'/content/' + item.id">
+          <img mat-card-image [src]="item.thumbnail_url" [alt]="item.title" class="card-thumbnail">
+          <mat-card-content>
+            <h4 class="card-title">{{ item.title }}</h4>
+            <p class="card-description">{{ item.description }}</p>
+            <div class="card-meta">
+              @if (item.category_name) {
+                <span class="category-chip">{{ item.category_name }}</span>
+              }
+              @for (tag of item.tags?.slice(0, 3); track tag) {
+                <span class="tag-chip">{{ tag }}</span>
+              }
+            </div>
+          </mat-card-content>
+        </mat-card>
+      }
+    </div>
+
+    <mat-paginator
+      [length]="totalCount"
+      [pageSize]="pageSize"
+      [pageIndex]="page - 1"
+      [pageSizeOptions]="[12, 24, 48]"
+      (page)="onPage($event)"
+      showFirstLastButtons>
+    </mat-paginator>
+  }
+</div>

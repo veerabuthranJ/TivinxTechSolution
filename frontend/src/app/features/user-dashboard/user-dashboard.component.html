@@ -1,0 +1,47 @@
+<div class="user-dashboard">
+  <div class="welcome-section">
+    <h2>Welcome back, {{ userName }}</h2>
+    <p class="subtitle">{{ totalContent }} videos available in the library</p>
+  </div>
+
+  <div class="search-section">
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Search content</mat-label>
+      <input matInput [(ngModel)]="searchQuery" (keyup.enter)="onSearch()" placeholder="Search videos, tutorials...">
+      <mat-icon matPrefix>search</mat-icon>
+      <button mat-icon-button matSuffix (click)="onSearch()">
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+
+  <div class="section-header">
+    <h3>Recently Added</h3>
+    <a mat-button color="primary" routerLink="/content">View All</a>
+  </div>
+
+  @if (loading) {
+    <div class="loading-container">
+      <mat-spinner diameter="36"></mat-spinner>
+    </div>
+  } @else if (recentContent.length === 0) {
+    <div class="empty-state">
+      <mat-icon>video_library</mat-icon>
+      <p>No content available yet</p>
+    </div>
+  } @else {
+    <div class="content-grid">
+      @for (item of recentContent; track item.id) {
+        <mat-card class="content-card" [routerLink]="'/content/' + item.id">
+          <img mat-card-image [src]="item.thumbnail_url" [alt]="item.title" class="card-thumbnail">
+          <mat-card-content>
+            <h4 class="card-title">{{ item.title }}</h4>
+            @if (item.category_name) {
+              <span class="category-chip">{{ item.category_name }}</span>
+            }
+          </mat-card-content>
+        </mat-card>
+      }
+    </div>
+  }
+</div>

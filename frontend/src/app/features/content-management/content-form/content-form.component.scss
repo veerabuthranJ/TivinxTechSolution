@@ -1,0 +1,54 @@
+.content-form-page {
+  max-width: 800px;
+
+  .page-header {
+    margin-bottom: 24px;
+  }
+
+  .page-title {
+    font-size: 24px;
+    font-weight: 500;
+    color: #333;
+    margin: 0;
+  }
+}
+
+.form-card {
+  border-radius: 12px !important;
+  padding: 8px;
+}
+
+.form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.thumbnail-preview {
+  margin-bottom: 16px;
+
+  img {
+    max-width: 320px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #eee;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  padding: 48px;
+}

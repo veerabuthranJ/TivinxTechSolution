@@ -1,0 +1,105 @@
+.profile-page {
+  max-width: 600px;
+
+  .page-title {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 24px;
+    color: #333;
+  }
+}
+
+.profile-card {
+  border-radius: 12px !important;
+  padding: 8px;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 0;
+
+  .avatar mat-icon {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+    color: #bdbdbd;
+  }
+
+  .profile-name {
+    h3 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 500;
+      color: #333;
+    }
+
+    .role-badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 10px;
+      background-color: #e3f2fd;
+      color: #1565c0;
+      font-size: 12px;
+      font-weight: 500;
+      margin-top: 4px;
+    }
+  }
+}
+
+.profile-details {
+  padding: 16px 0;
+}
+
+.detail-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 12px 0;
+
+  mat-icon {
+    color: #999;
+    margin-top: 2px;
+  }
+
+  .detail-label {
+    display: block;
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 2px;
+  }
+
+  .detail-value {
+    font-size: 15px;
+    color: #333;
+  }
+}
+
+.status-chip {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 10px;
+  font-size: 12px !important;
+  font-weight: 500;
+}
+
+.status-APPROVED {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status-PENDING {
+  background-color: #fff3e0;
+  color: #e65100;
+}
+
+.profile-actions {
+  padding: 16px 0;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  padding: 48px;
+}

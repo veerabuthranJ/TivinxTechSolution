@@ -1,0 +1,90 @@
+<div class="content-management">
+  <div class="page-header">
+    <h2 class="page-title">Content Management</h2>
+    <a mat-raised-button color="primary" routerLink="/admin/content/add">
+      <mat-icon>add</mat-icon> Add Content
+    </a>
+  </div>
+
+  <mat-card class="management-card">
+    <mat-card-content>
+      <div class="toolbar-row">
+        <mat-form-field appearance="outline" class="search-field">
+          <mat-label>Search content</mat-label>
+          <input matInput [(ngModel)]="search" (keyup.enter)="onSearch()" placeholder="Search by title">
+          <mat-icon matPrefix>search</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="filter-field">
+          <mat-label>Status</mat-label>
+          <mat-select [(ngModel)]="statusFilter" (selectionChange)="onStatusFilter()">
+            <mat-option value="">All</mat-option>
+            <mat-option value="published">Published</mat-option>
+            <mat-option value="unpublished">Unpublished</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      @if (loading) {
+        <div class="loading-container">
+          <mat-spinner diameter="36"></mat-spinner>
+        </div>
+      } @else if (contents.length === 0) {
+        <div class="empty-state">
+          <mat-icon>video_library</mat-icon>
+          <p>No content found</p>
+        </div>
+      } @else {
+        <table mat-table [dataSource]="contents" class="content-table">
+          <ng-container matColumnDef="thumbnail">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let row">
+              <img [src]="row.thumbnail_url" [alt]="row.title" class="thumbnail">
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef>Title</th>
+            <td mat-cell *matCellDef="let row">{{ row.title }}</td>
+          </ng-container>
+          <ng-container matColumnDef="category_name">
+            <th mat-header-cell *matHeaderCellDef>Category</th>
+            <td mat-cell *matCellDef="let row">{{ row.category_name || 'N/A' }}</td>
+          </ng-container>
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let row">
+              <span class="status-chip" [class]="'status-' + row.status">{{ row.status }}</span>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="created_at">
+            <th mat-header-cell *matHeaderCellDef>Created</th>
+            <td mat-cell *matCellDef="let row">{{ row.created_at | date:'mediumDate' }}</td>
+          </ng-container>
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let row">
+              <a mat-icon-button color="primary" matTooltip="Edit" [routerLink]="'/admin/content/edit/' + row.id">
+                <mat-icon>edit</mat-icon>
+              </a>
+              <button mat-icon-button [matTooltip]="row.status === 'published' ? 'Unpublish' : 'Publish'" (click)="togglePublish(row)">
+                <mat-icon>{{ row.status === 'published' ? 'visibility_off' : 'visibility' }}</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" matTooltip="Delete" (click)="deleteContent(row)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="columns"></tr>
+          <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+        </table>
+        <mat-paginator
+          [length]="totalCount"
+          [pageSize]="pageSize"
+          [pageIndex]="page - 1"
+          [pageSizeOptions]="[10, 20, 50]"
+          (page)="onPage($event)"
+          showFirstLastButtons>
+        </mat-paginator>
+      }
+    </mat-card-content>
+  </mat-card>
+</div>

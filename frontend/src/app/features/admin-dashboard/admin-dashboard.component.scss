@@ -1,0 +1,147 @@
+.dashboard {
+  .page-title {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 24px;
+    color: #333;
+  }
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  padding: 48px;
+}
+
+.error-state {
+  text-align: center;
+  padding: 48px;
+  color: #c62828;
+
+  mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+  }
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.stat-card {
+  border-radius: 12px !important;
+
+  .stat-content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 8px 0;
+  }
+
+  .stat-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    mat-icon {
+      font-size: 28px;
+      width: 28px;
+      height: 28px;
+    }
+  }
+
+  .stat-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stat-value {
+    font-size: 28px;
+    font-weight: 600;
+    color: #333;
+    line-height: 1.2;
+  }
+
+  .stat-label {
+    font-size: 13px;
+    color: #888;
+    margin-top: 2px;
+  }
+}
+
+.tables-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 24px;
+}
+
+.table-card {
+  border-radius: 12px !important;
+
+  mat-card-header {
+    display: flex;
+    align-items: center;
+    padding: 16px 16px 0;
+
+    .spacer {
+      flex: 1;
+    }
+  }
+
+  table {
+    width: 100%;
+  }
+}
+
+.status-chip {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.status-pending, .status-PENDING {
+  background-color: #fff3e0;
+  color: #e65100;
+}
+
+.status-approved, .status-APPROVED {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status-rejected, .status-REJECTED {
+  background-color: #fce4ec;
+  color: #c62828;
+}
+
+.status-disabled, .status-DISABLED {
+  background-color: #f5f5f5;
+  color: #757575;
+}
+
+.status-published {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status-unpublished {
+  background-color: #fff3e0;
+  color: #e65100;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 32px;
+  color: #999;
+  font-size: 14px;
+}

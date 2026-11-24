@@ -1,0 +1,45 @@
+<div class="video-player-page">
+  <a mat-button routerLink="/content" class="back-link">
+    <mat-icon>arrow_back</mat-icon> Back to Library
+  </a>
+
+  @if (loading) {
+    <div class="loading-container">
+      <mat-spinner diameter="40"></mat-spinner>
+    </div>
+  } @else if (error) {
+    <div class="error-state">
+      <mat-icon>error_outline</mat-icon>
+      <p>{{ error }}</p>
+    </div>
+  } @else if (content) {
+    <div class="video-wrapper">
+      <iframe
+        [src]="embedUrl | safeUrl"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <div class="video-info">
+      <h1>{{ content.title }}</h1>
+
+      <div class="meta-row">
+        @if (content.category_name) {
+          <span class="category-chip">{{ content.category_name }}</span>
+        }
+        @for (tag of content.tags; track tag) {
+          <span class="tag-chip">{{ tag }}</span>
+        }
+      </div>
+
+      <p class="description">{{ content.description }}</p>
+
+      <div class="date-info">
+        <mat-icon>calendar_today</mat-icon>
+        <span>Added {{ content.created_at | date:'mediumDate' }}</span>
+      </div>
+    </div>
+  }
+</div>
